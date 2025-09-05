@@ -6,13 +6,13 @@
   top: 50%;
   left: 50%;
   width: 100%;
-  aspect-ratio: 4000 / 2250;
+  aspect-ratio: 2000 / 1125;
   transform: translate(-50%, -50%);
   max-width: 2000px;
   overflow: hidden;
 }
 
-@media (min-aspect-ratio: 4000/2250) {
+@media (min-aspect-ratio: 2000/1125) {
   .main {
     width: auto;
     height: 100%;
@@ -116,66 +116,12 @@
   pointer-events: all;
 }
 
-/* .hexColors {
-  
-}
-.hexColors > div {
-  position: absolute;
-  width: 20%;
-  height: 20%;
-  box-sizing: border-box;
-  border: 1px solid rgba(0,0,0,0.1);
-} */
-/* .hexColor {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  background: var(--main-color);
-  opacity: 0.5;
-  clip-path: polygon(0 1% 100% 0);
-} */
-/* clip-path: rect(0 1% 100% 0); */
-
-/* .colorSquare {
-  width: 100%;
-  height: 100%;
-  box-sizing: border-box;
-} */
-
-/* .hexColors > div {
-  background: red;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 1%;
-  height: 100%;
-  display: block;
-  opacity: 0.5;
-}
-
-.hexColors > div:nth-of-type(2) {
-  width: 35%;
-  height: 8%;
-  top: 0;
-  left: 26%;
-}
-
-.hexColors > div:nth-of-type(3) {
-  width: 1%;
-  height: 65%;
-  top: 0;
-  right: 1%;
-  left: auto;
-} */
-
 .gradientOverlay {
   overflow-x: scroll;
 }
 
 .gradientOverlay > div {
-  aspect-ratio: 4000 / 2250;
+  aspect-ratio: 2000 / 1125;
   width: 100%;
   display: block;
   background: linear-gradient(
@@ -184,10 +130,3 @@
     var(--next-grad-color, #ffffff) 100%
   );
 }
-/* .gradientOverlay > div:before {
-  background: linear-gradient(
-    to bottom,
-    var(--prev-grad-color, #ffffff),
-    var(--grad-color, #000000)
-  );
-} */
