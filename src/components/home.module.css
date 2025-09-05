@@ -1,0 +1,193 @@
+.page {
+  position: relative;
+}
+.main {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  aspect-ratio: 4000 / 2250;
+  transform: translate(-50%, -50%);
+  max-width: 2000px;
+  overflow: hidden;
+}
+
+@media (min-aspect-ratio: 4000/2250) {
+  .main {
+    width: auto;
+    height: 100%;
+  }
+}
+
+.main img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.frames,
+.framesText,
+.gradientOverlay,
+.inside {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.frames img,
+.framesText img,
+.framesText > div {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.framesText {
+  z-index: 9999;
+}
+.framesText > div {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s linear;
+}
+.framesText > div.active {
+  opacity: 1;
+  /* pointer-events: all; */
+}
+
+.framesText > div.active > a {
+  pointer-events: all;
+}
+.framesText a {
+  width: 35%;
+  height: 8%;
+  top: 0;
+  left: 26%;
+  position: absolute;
+  display: block;
+  z-index: 10;
+  cursor: pointer;
+}
+
+.hexGrey {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  z-index: 99;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+}
+
+.hexGrey > div {
+  background: #9d9fa2;
+  position: absolute;
+  top: 0;
+  left: 1%;
+  width: 25%;
+  height: 2%;
+  display: block;
+}
+.hexGrey > div:nth-of-type(2) {
+  left: auto;
+  right: 0;
+  width: 39%;
+  height: 5%;
+  top: 1%;
+}
+
+/* inside */
+.inside {
+  overflow-x: scroll;
+  -webkit-mask-image: url("/mask.svg");
+  -webkit-mask-size: cover;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-image: url("/mask.svg");
+  mask-size: cover;
+  mask-repeat: no-repeat;
+  mask-position: center;
+  pointer-events: all;
+}
+
+/* .hexColors {
+  
+}
+.hexColors > div {
+  position: absolute;
+  width: 20%;
+  height: 20%;
+  box-sizing: border-box;
+  border: 1px solid rgba(0,0,0,0.1);
+} */
+/* .hexColor {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: var(--main-color);
+  opacity: 0.5;
+  clip-path: polygon(0 1% 100% 0);
+} */
+/* clip-path: rect(0 1% 100% 0); */
+
+/* .colorSquare {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+} */
+
+/* .hexColors > div {
+  background: red;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1%;
+  height: 100%;
+  display: block;
+  opacity: 0.5;
+}
+
+.hexColors > div:nth-of-type(2) {
+  width: 35%;
+  height: 8%;
+  top: 0;
+  left: 26%;
+}
+
+.hexColors > div:nth-of-type(3) {
+  width: 1%;
+  height: 65%;
+  top: 0;
+  right: 1%;
+  left: auto;
+} */
+
+.gradientOverlay {
+  overflow-x: scroll;
+}
+
+.gradientOverlay > div {
+  aspect-ratio: 4000 / 2250;
+  width: 100%;
+  display: block;
+  background: linear-gradient(
+    to bottom,
+    var(--grad-color, #000000) 50%,
+    var(--next-grad-color, #ffffff) 100%
+  );
+}
+/* .gradientOverlay > div:before {
+  background: linear-gradient(
+    to bottom,
+    var(--prev-grad-color, #ffffff),
+    var(--grad-color, #000000)
+  );
+} */
