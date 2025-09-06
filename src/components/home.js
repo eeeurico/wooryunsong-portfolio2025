@@ -3,10 +3,12 @@
 import Image from "next/image"
 import styles from "./home.module.css"
 import { useScrollIndex } from "./useScrollIndex"
-import { useRef, useEffect } from "react"
+import { useRef, useEffect, useState } from "react"
 
-export default function Home({ insideImages, framesText, hexColors }) {
-  const [insideRef, scrollIdx, scrollFrac] = useScrollIndex(insideImages.length)
+export default function Home({ innerImages, text, hexColors }) {
+  const [loaded, setLoaded] = useState(false)
+
+  const [innerRef, scrollIdx, scrollFrac] = useScrollIndex(innerImages.length)
 
   const getFrameOpacity = (idx) => {
     return Math.round(scrollFrac) === idx ? 1 : 0
@@ -15,23 +17,23 @@ export default function Home({ insideImages, framesText, hexColors }) {
   const gradientRef = useRef(null)
 
   useEffect(() => {
-    const inside = insideRef.current
+    const inner = innerRef.current
     const gradient = gradientRef.current
-    if (!inside || !gradient) return
+    if (!inner || !gradient) return
     function syncScroll() {
-      gradient.scrollTop = inside.scrollTop
+      gradient.scrollTop = inner.scrollTop
     }
-    inside.addEventListener("scroll", syncScroll)
-    return () => inside.removeEventListener("scroll", syncScroll)
-  }, [insideRef])
+    inner.addEventListener("scroll", syncScroll)
+    return () => inner.removeEventListener("scroll", syncScroll)
+  }, [innerRef])
 
   return (
-    <div className={styles.page}>
+    <div className={`${styles.page} ${!loaded ? styles.notloaded : ""}`}>
       <main className={styles.main}>
         <div className={styles.gradientOverlay} ref={gradientRef}>
-          {insideImages.map(({}, idx) => (
+          {innerImages.map(({}, idx) => (
             <div
-              key={`inside-grad-${idx}`}
+              key={`inner-grad-${idx}`}
               style={{
                 "--next-grad-color": hexColors[idx + 1] || hexColors[idx],
                 "--grad-color": hexColors[idx],
@@ -39,15 +41,23 @@ export default function Home({ insideImages, framesText, hexColors }) {
             />
           ))}
         </div>
-        <div className={styles.inside} ref={insideRef}>
-          {insideImages.map((src, idx) => (
+        <div className={styles.inner} ref={innerRef}>
+          {innerImages.map((src, idx) => (
             <Image
-              key={`inside-${idx}`}
+              key={`inner-${idx}`}
               src={src}
-              alt={`Inside ${idx + 1}`}
+              alt={`inner ${idx + 1}`}
               width={2000}
               height={1125}
               priority={true}
+              onLoadingComplete={() => {
+                setTimeout(() => {
+                  idx + 1 === 1 && setLoaded(true)
+                  // idx === 0 && setLoaded(true)
+                  // console.log(`completed inner image ${idx + 1}`)
+                }, 100)
+              }}
+              quality={100}
               // loading="lazy"
               // placeholder="blur"
             />
@@ -63,8 +73,8 @@ export default function Home({ insideImages, framesText, hexColors }) {
           <div />
         </div>
 
-        <div className={styles.framesText}>
-          {framesText.map(({ img, link }, idx) => {
+        <div className={styles.text}>
+          {text.map(({ img, link }, idx) => {
             const isActive = getFrameOpacity(idx) === 1
             if (!img) return null
             return (
